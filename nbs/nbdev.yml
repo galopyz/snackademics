@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "snackademics"
+  site-url: "https://galopyz.github.io/snackademics"
+  description: "Learning in a fun and bite-sized way"
+  repo-branch: main
+  repo-url: "https://github.com/galopyz/snackademics"
