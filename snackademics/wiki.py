@@ -5,13 +5,14 @@
 # %% auto 0
 __all__ = ['WikiArticle', 'ArticleAnalysis', 'analyze_article_for_reader', 'is_interactive', 'analyze_multiple_articles']
 
-# %% ../nbs/00_wiki.ipynb 3
+# %% ../nbs/00_wiki.ipynb 4
 import httpx
 from bs4 import BeautifulSoup
 import html2text
 from IPython.display import Markdown
+from fastcore.utils import *
 
-# %% ../nbs/00_wiki.ipynb 5
+# %% ../nbs/00_wiki.ipynb 7
 class WikiArticle:
     "Grab a wikipedia article to analyze."
     def __init__(self, url):
@@ -30,20 +31,20 @@ class WikiArticle:
     def title(self): return self.soup.find('h1', id='firstHeading').text.strip()
     
     @property
-    def introduction(self):
+    def intro(self):
         "Select an introduction from the `WikiArticle`."
         content = self.soup.select_one("#mw-content-text > div.mw-content-ltr.mw-parser-output")
         paragraphs = []
         for p in content.find_all('p'):
             if p.find_previous('div', class_='mw-heading mw-heading2'): break
             if text := p.text.strip(): paragraphs.append(text)
-        return '\n\n'.join(paragraphs)
+        return f"# {self.title}\n\n" + '\n\n'.join(paragraphs)
 
-# %% ../nbs/00_wiki.ipynb 12
+# %% ../nbs/00_wiki.ipynb 17
 from claudette import Chat, Client, models
 from fastcore.utils import *
 
-# %% ../nbs/00_wiki.ipynb 16
+# %% ../nbs/00_wiki.ipynb 22
 class ArticleAnalysis:
     "Analysis of a Wikipedia article for a reader based on the background."
     def __init__(self,
@@ -60,10 +61,10 @@ class ArticleAnalysis:
         
     __repr__ = basic_repr('interest_rating, interest_reason, difficulty_rating, difficulty_reason, prerequisites, prereq_reason')
 
-# %% ../nbs/00_wiki.ipynb 17
+# %% ../nbs/00_wiki.ipynb 23
 def analyze_article_for_reader(article_text: str, background: str) -> ArticleAnalysis:
     "Analyze a Wikipedia article for a specific reader background"
-    prompt = f"""Here's a Wikipedia article introduction:
+    prompt = f"""Provide an analysis of a Wikipedia article for a reader based on the background.
 
 <problem>
 Analyze this article introduction for the given reader background. Provide:
@@ -73,29 +74,34 @@ Analyze this article introduction for the given reader background. Provide:
 Keep all explanations under 50 words.
 </problem>
 
+Here is the article below.
 <article>
 {article_text}
 </article>
 
+Here is the background of the reader. 
+Pay attention to detail and think about how this information is related to the article.
 <reader_background>
 {background}
 </reader_background>
+
+Be honest about the rating. It is realistic to have low ratings. 
 """
     
     return client.structured(prompt, ArticleAnalysis)[0]
 
-# %% ../nbs/00_wiki.ipynb 23
+# %% ../nbs/00_wiki.ipynb 29
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 import sys
 from typing import List, Dict
 import threading
 
-# %% ../nbs/00_wiki.ipynb 24
+# %% ../nbs/00_wiki.ipynb 30
 def is_interactive() -> bool:
     "Check if we're running in an interactive environment (IPython/Jupyter)"
     return hasattr(sys, 'ps1') or bool(sys.flags.interactive) or 'ipykernel' in sys.modules
 
-# %% ../nbs/00_wiki.ipynb 27
+# %% ../nbs/00_wiki.ipynb 33
 def analyze_multiple_articles(articles: List[str], backgrounds: Dict[str, str], max_workers: int = None) -> Dict[str, Dict[str, ArticleAnalysis]]:
     "Analyze multiple articles for different reader backgrounds in parallel"
     Executor = ThreadPoolExecutor if is_interactive() else ProcessPoolExecutor
