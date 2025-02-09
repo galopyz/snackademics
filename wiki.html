@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Getting a wiki article and analyze to give a rating based on reader’s background.">
+
+<title>wiki article – snackademics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0652833b129a4aecb7d8777fd89a11f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="wiki article – snackademics">
+<meta property="og:description" content="Getting a wiki article and analyze to give a rating based on reader’s background.">
+<meta property="og:site_name" content="snackademics">
+<meta name="twitter:title" content="wiki article – snackademics">
+<meta name="twitter:description" content="Getting a wiki article and analyze to give a rating based on reader’s background.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">snackademics</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./wiki.html">wiki article</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">snackademics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./wiki.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">wiki article</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#wikiarticle" id="toc-wikiarticle" class="nav-link active" data-scroll-target="#wikiarticle">WikiArticle</a>
+  <ul class="collapse">
+  <li><a href="#wikiarticle-1" id="toc-wikiarticle-1" class="nav-link" data-scroll-target="#wikiarticle-1">WikiArticle</a></li>
+  <li><a href="#wikiarticle.intro" id="toc-wikiarticle.intro" class="nav-link" data-scroll-target="#wikiarticle.intro">WikiArticle.intro</a></li>
+  </ul></li>
+  <li><a href="#using-claudette" id="toc-using-claudette" class="nav-link" data-scroll-target="#using-claudette">Using Claudette</a>
+  <ul class="collapse">
+  <li><a href="#articleanalysis" id="toc-articleanalysis" class="nav-link" data-scroll-target="#articleanalysis">ArticleAnalysis</a></li>
+  <li><a href="#analyze_article_for_reader" id="toc-analyze_article_for_reader" class="nav-link" data-scroll-target="#analyze_article_for_reader">analyze_article_for_reader</a></li>
+  </ul></li>
+  <li><a href="#running-in-parallel" id="toc-running-in-parallel" class="nav-link" data-scroll-target="#running-in-parallel">Running in parallel</a>
+  <ul class="collapse">
+  <li><a href="#is_interactive" id="toc-is_interactive" class="nav-link" data-scroll-target="#is_interactive">is_interactive</a></li>
+  <li><a href="#analyze_multiple_articles" id="toc-analyze_multiple_articles" class="nav-link" data-scroll-target="#analyze_multiple_articles">analyze_multiple_articles</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/galopyz/snackademics/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="wiki.html.md"><i class="bi bi-file-code"></i>CommonMark</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">wiki article</h1>
+</div>
+
+<div>
+  <div class="description">
+    Getting a wiki article and analyze to give a rating based on reader’s background.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<p>Before reading an article, I want to know about a snapshot of the article. In this snapshot, I would like to know how interesting it is or how difficult it is for me to read. We can get a recommendation from AI.</p>
+<section id="wikiarticle" class="level2">
+<h2 class="anchored" data-anchor-id="wikiarticle">WikiArticle</h2>
+<p>Let’s grab a wikipedia article to test.</p>
+<hr>
+<p><a href="https://github.com/galopyz/snackademics/blob/main/snackademics/wiki.py#L16" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="wikiarticle-1" class="level3">
+<h3 class="anchored" data-anchor-id="wikiarticle-1">WikiArticle</h3>
+<blockquote class="blockquote">
+<pre><code> WikiArticle (url)</code></pre>
+</blockquote>
+<p><em>Grab a wikipedia article to analyze.</em></p>
+<hr>
+<p><a href="https://github.com/galopyz/snackademics/blob/main/snackademics/wiki.py#L34" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="wikiarticle.intro" class="level3">
+<h3 class="anchored" data-anchor-id="wikiarticle.intro">WikiArticle.intro</h3>
+<blockquote class="blockquote">
+<pre><code> WikiArticle.intro ()</code></pre>
+</blockquote>
+<p><em>Select an introduction from the <a href="https://galopyz.github.io/snackademics/wiki.html#wikiarticle"><code>WikiArticle</code></a>.</em></p>
+<p>With an wikipedia url, we can grab the article. Let’s take a look at Evolution of snake venom article.</p>
+<div id="cell-8" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>article <span class="op">=</span> WikiArticle(<span class="st">"https://en.wikipedia.org/wiki/Evolution_of_snake_venom"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>intro <span class="op">=</span> article.intro</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Markdown(intro)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="evolution-of-snake-venom" class="level1 cell-output cell-output-display cell-output-markdown">
+<h1>Evolution of snake venom</h1>
+<p>Venom in snakes and some lizards is a form of saliva that has been modified into venom over its evolutionary history.[1] In snakes, venom has evolved to kill or subdue prey, as well as to perform other diet-related functions.[2] While snakes occasionally use their venom in self defense, this is not believed to have had a strong effect on venom evolution.[3] The evolution of venom is thought to be responsible for the enormous expansion of snakes across the globe.[4][5][6]</p>
+<p>The evolutionary history of snake venom is a matter of debate. Historically, snake venom was believed to have evolved once, at the base of the Caenophidia, or derived snakes. Molecular studies published beginning in 2006 suggested that venom originated just once among a putative clade of reptiles, called Toxicofera, approximately 170 million years ago.[7] Under this hypothesis, the original toxicoferan venom was a very simple set of proteins that were assembled in a pair of glands. Subsequently, this set of proteins diversified in the various lineages of toxicoferans, including Serpentes, Anguimorpha, and Iguania: several snake lineages also lost the ability to produce venom.[8][9] The Toxicoferan hypothesis was challenged by studies in the mid-2010s, including a 2015 study which found that venom proteins had homologs in many other tissues in the Burmese python.[10][11] The study therefore suggested that venom had evolved independently in different reptile lineages, including once in the Caenophid snakes.[10] Venom containing most extant toxin families is believed to have been present in the last common ancestor of the Caenophidia: these toxins subsequently underwent tremendous diversification, accompanied by changes in the morphology of venom glands and delivery systems.[12]</p>
+<p>Snake venom evolution is thought to be driven by an evolutionary arms race between venom proteins and prey physiology.[13] The common mechanism of evolution is thought to be gene duplication followed by natural selection for adaptive traits.[14] The adaptations produced by this process include venom more toxic to specific prey in several lineages,[15][16][17] proteins that pre-digest prey,[18] and a method to track down prey after a bite.[19] These various adaptations of venom have also led to considerable debate about the definition of venom and venomous snakes.[20] Changes in the diet of a lineage have been linked to atrophication of the venom.[8][9]</p>
+</section>
+</div>
+<p><code>article.intro</code> is a title and some paragraphs of content before table of contents starts. Since this is a markdown, we can use <code>_repr_markdown_</code> to display article nicely.</p>
+<div id="cell-10" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _repr_markdown_(<span class="va">self</span>:(WikiArticle)):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">self</span>.intro</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-11" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>article</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="evolution-of-snake-venom-1" class="level1 cell-output cell-output-display cell-output-markdown">
+<h1>Evolution of snake venom</h1>
+<p>Venom in snakes and some lizards is a form of saliva that has been modified into venom over its evolutionary history.[1] In snakes, venom has evolved to kill or subdue prey, as well as to perform other diet-related functions.[2] While snakes occasionally use their venom in self defense, this is not believed to have had a strong effect on venom evolution.[3] The evolution of venom is thought to be responsible for the enormous expansion of snakes across the globe.[4][5][6]</p>
+<p>The evolutionary history of snake venom is a matter of debate. Historically, snake venom was believed to have evolved once, at the base of the Caenophidia, or derived snakes. Molecular studies published beginning in 2006 suggested that venom originated just once among a putative clade of reptiles, called Toxicofera, approximately 170 million years ago.[7] Under this hypothesis, the original toxicoferan venom was a very simple set of proteins that were assembled in a pair of glands. Subsequently, this set of proteins diversified in the various lineages of toxicoferans, including Serpentes, Anguimorpha, and Iguania: several snake lineages also lost the ability to produce venom.[8][9] The Toxicoferan hypothesis was challenged by studies in the mid-2010s, including a 2015 study which found that venom proteins had homologs in many other tissues in the Burmese python.[10][11] The study therefore suggested that venom had evolved independently in different reptile lineages, including once in the Caenophid snakes.[10] Venom containing most extant toxin families is believed to have been present in the last common ancestor of the Caenophidia: these toxins subsequently underwent tremendous diversification, accompanied by changes in the morphology of venom glands and delivery systems.[12]</p>
+<p>Snake venom evolution is thought to be driven by an evolutionary arms race between venom proteins and prey physiology.[13] The common mechanism of evolution is thought to be gene duplication followed by natural selection for adaptive traits.[14] The adaptations produced by this process include venom more toxic to specific prey in several lineages,[15][16][17] proteins that pre-digest prey,[18] and a method to track down prey after a bite.[19] These various adaptations of venom have also led to considerable debate about the definition of venom and venomous snakes.[20] Changes in the diet of a lineage have been linked to atrophication of the venom.[8][9]</p>
+</section>
+</div>
+</section>
+</section>
+<section id="using-claudette" class="level2">
+<h2 class="anchored" data-anchor-id="using-claudette">Using Claudette</h2>
+<p>Using <code>claudette</code>, we can analyze the article. When analyzing, it decides on interest_rating, difficulty_rating, prerequisites, and explanations for analysis.</p>
+<div id="cell-14" class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>models</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['claude-3-opus-20240229',
+ 'claude-3-5-sonnet-20241022',
+ 'claude-3-haiku-20240307',
+ 'claude-3-5-haiku-20241022']</code></pre>
+</div>
+</div>
+<p>Using haiku is not recommended as it is not reliable.</p>
+<div id="cell-16" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> Client(models[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will use <code>Tool use</code> from <code>claudette</code>. There are more information on <a href="https://docs.anthropic.com/en/docs/build-with-claude/tool-use">claude doc</a> and <a href="https://claudette.answer.ai/core.html#tool-use">claudette doc</a>. Basically, we create a tool for Claude to use and to return result in a formulated way.</p>
+<p>For us, we want ratings and reasons from the analysis.</p>
+<hr>
+<p><a href="https://github.com/galopyz/snackademics/blob/main/snackademics/wiki.py#L48" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="articleanalysis" class="level3">
+<h3 class="anchored" data-anchor-id="articleanalysis">ArticleAnalysis</h3>
+<blockquote class="blockquote">
+<pre><code> ArticleAnalysis (interest_rating:int, interest_reason:str,
+                  difficulty_rating:int, difficulty_reason:str,
+                  prerequisites:list[str], prereq_reason:str)</code></pre>
+</blockquote>
+<p><em>Analysis of a Wikipedia article for a reader based on the background.</em></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>interest_rating</td>
+<td>int</td>
+<td>Rating 1-10 of how interesting the article is for this reader based on the background</td>
+</tr>
+<tr class="even">
+<td>interest_reason</td>
+<td>str</td>
+<td>Markdown explanation for interest rating (max 50 words) for this reader based on the background</td>
+</tr>
+<tr class="odd">
+<td>difficulty_rating</td>
+<td>int</td>
+<td>Rating 1-10 of how difficult the article is for this reader based on the background</td>
+</tr>
+<tr class="even">
+<td>difficulty_reason</td>
+<td>str</td>
+<td>Markdown explanation for difficulty rating (max 50 words) for this reader based on the background</td>
+</tr>
+<tr class="odd">
+<td>prerequisites</td>
+<td>list</td>
+<td>List of topics reader should know before reading for this reader based on the background</td>
+</tr>
+<tr class="even">
+<td>prereq_reason</td>
+<td>str</td>
+<td>Markdown explanation for prerequisites (max 50 words) for this reader based on the background</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><a href="https://github.com/galopyz/snackademics/blob/main/snackademics/wiki.py#L65" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="analyze_article_for_reader" class="level3">
+<h3 class="anchored" data-anchor-id="analyze_article_for_reader">analyze_article_for_reader</h3>
+<blockquote class="blockquote">
+<pre><code> analyze_article_for_reader (article_text:str, background:str)</code></pre>
+</blockquote>
+<p><em>Analyze a Wikipedia article for a specific reader background</em></p>
+<div id="cell-20" class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>backgrounds <span class="op">=</span> {</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'high_school'</span>: <span class="st">"""Background of the reader:</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="st">- High school graduate</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="st">- Interested in science but no formal training beyond high school</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="st">- Enjoys nature documentaries</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="st">- Has basic understanding of how evolution works from school and documentaries</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'college_bio'</span>: <span class="st">"""Background of the reader:</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="st">- A college student</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="st">- Familiar with biology, organic chemistry, statistics, immunology, genetics, molecular genetics, molecular biology, and linear algebra.</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="st">- Interested in science related to machine learning, statistics, immunology, organic chemistry, genetics, genomics, and bioinformatics.</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'humanities'</span>: <span class="st">"""Background of the reader:</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="st">- English Literature professor</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="st">- Interested in narrative and historical developments</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="st">- Reads Scientific American occasionally</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="st">- No formal science education beyond high school</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="st">- Hates science.</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>,</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'tech_professional'</span>: <span class="st">"""Background of the reader:</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="st">- Software engineer with computer science degree</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="st">- Familiar with complex systems and algorithms</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="st">- Reads tech blogs and popular science articles</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="st">- Basic understanding of scientific method</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>,</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">'medical_practitioner'</span>: <span class="st">"""Background of the reader:</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="st">- Primary care physician</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="st">- Strong understanding of human anatomy and physiology</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="st">- Familiar with pharmacology and toxicology</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="st">- Loves national geographic</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-21" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> reader_type, background <span class="kw">in</span> backgrounds.items():</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    analysis <span class="op">=</span> analyze_article_for_reader(intro, background)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Analysis for </span><span class="sc">{</span>reader_type<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(analysis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Analysis for high_school:
+ArticleAnalysis(interest_rating=7, interest_reason="Connects well with reader's interest in nature documentaries and evolution. The concept of evolutionary arms race between snakes and prey is engaging for someone who enjoys natural science.", difficulty_rating=8, difficulty_reason='Contains complex terminology (Caenophidia, Toxicofera) and molecular concepts. Technical discussion of gene duplication and protein evolution may be challenging without college-level biology.', prerequisites=['Basic evolution concepts', 'Basic cell biology', 'Protein structure basics', 'Scientific method understanding', 'Basic genetics'], prereq_reason='Understanding proteins, genes, and evolutionary mechanisms is crucial to grasp how venom evolved. Basic cell biology helps comprehend how venom glands and proteins function.')
+
+Analysis for college_bio:
+ArticleAnalysis(interest_rating=8, interest_reason="Aligns with reader's interests in molecular biology, genetics, and evolution. The molecular aspects of venom evolution, gene duplication, and protein adaptation would appeal to someone interested in genomics and bioinformatics.", difficulty_rating=3, difficulty_reason="Content is accessible given reader's strong background in biology, genetics, and molecular biology. Terms like gene duplication, protein evolution, and molecular studies are familiar concepts.", prerequisites=['Basic evolution concepts', 'Protein structure and function', 'Gene expression', 'Molecular phylogenetics', 'Natural selection'], prereq_reason='Understanding protein evolution, gene duplication, and phylogenetic analysis requires these fundamentals. Reader already has most prerequisites through biology and genetics background.')
+
+Analysis for humanities:
+ArticleAnalysis(interest_rating=4, interest_reason='Despite the narrative of evolutionary arms race and historical debate, the heavy focus on molecular biology and technical details may put off a literature professor who dislikes science.', difficulty_rating=8, difficulty_reason='Article contains complex scientific terminology (Caenophidia, Toxicofera, homologs) and molecular concepts that would be challenging without formal science background.', prerequisites=['Basic evolutionary theory', 'Basic molecular biology concepts', 'Understanding of scientific terminology', 'Knowledge of reptile classification'], prereq_reason='These fundamentals are essential to grasp the core concepts of gene duplication, protein evolution, and taxonomic classifications discussed throughout the article.')
+
+Analysis for tech_professional:
+ArticleAnalysis(interest_rating=7, interest_reason='The evolutionary algorithm-like process and system complexity would appeal to a software engineer. The concept of gene duplication and adaptation parallels software development patterns.', difficulty_rating=6, difficulty_reason='While the reader can grasp system evolution concepts, the biological terminology and phylogenetic concepts may be challenging without prior knowledge of molecular biology and taxonomy.', prerequisites=['Basic molecular biology concepts', 'Understanding of evolutionary theory', 'Familiarity with phylogenetic classification', 'Knowledge of protein structure basics'], prereq_reason='These topics provide essential context for understanding molecular evolution, protein modification, and taxonomic relationships discussed in the article.')
+
+Analysis for medical_practitioner:
+ArticleAnalysis(interest_rating=8, interest_reason='As a physician with toxicology knowledge and National Geographic interest, the evolutionary aspects of venom development and its medical implications would be highly engaging.', difficulty_rating=4, difficulty_reason='Medical background provides strong foundation for understanding biological concepts. Some evolutionary biology terms may be unfamiliar but core concepts are accessible.', prerequisites=['Basic evolutionary biology concepts', 'Understanding of protein synthesis', 'Knowledge of phylogenetic classification', 'Familiarity with molecular biology terms'], prereq_reason='These topics help comprehend the evolutionary mechanisms of venom development, gene duplication, and species classification discussed in the article.')</code></pre>
+</div>
+</div>
+<p>Interesting to see that everyone likes to read evolution of snake venom.</p>
+</section>
+</section>
+<section id="running-in-parallel" class="level2">
+<h2 class="anchored" data-anchor-id="running-in-parallel">Running in parallel</h2>
+<p>It is quite slow analyzing one by one. It is possible to analyze multiple articles in parallel, but this is prone to <code>rate_limit_error</code>.</p>
+<hr>
+<p><a href="https://github.com/galopyz/snackademics/blob/main/snackademics/wiki.py#L100" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="is_interactive" class="level3">
+<h3 class="anchored" data-anchor-id="is_interactive">is_interactive</h3>
+<blockquote class="blockquote">
+<pre><code> is_interactive ()</code></pre>
+</blockquote>
+<p><em>Check if we’re running in an interactive environment (IPython/Jupyter)</em></p>
+<div id="cell-26" class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>is_interactive()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>True</code></pre>
+</div>
+</div>
+<p>We use <code>ThreadPoolExecuter</code> if we are in interactive mode, but we switch to <code>ProcessPoolExecutor</code> when we are running it in script.</p>
+<hr>
+<p><a href="https://github.com/galopyz/snackademics/blob/main/snackademics/wiki.py#L105" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="analyze_multiple_articles" class="level3">
+<h3 class="anchored" data-anchor-id="analyze_multiple_articles">analyze_multiple_articles</h3>
+<blockquote class="blockquote">
+<pre><code> analyze_multiple_articles (articles:List[str], backgrounds:Dict[str,str],
+                            max_workers:int=None)</code></pre>
+</blockquote>
+<p><em>Analyze multiple articles for different reader backgrounds in parallel</em></p>
+<div id="cell-29" class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>boring_articles <span class="op">=</span> {</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'bureaucracy'</span>: WikiArticle(<span class="st">"https://en.wikipedia.org/wiki/ISO_216"</span>).introduction,  <span class="co"># Paper size standards</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'statistics'</span>: WikiArticle(<span class="st">"https://en.wikipedia.org/wiki/Analysis_of_variance"</span>).introduction,  <span class="co"># Dense statistical methods</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'obscure'</span>: WikiArticle(<span class="st">"https://en.wikipedia.org/wiki/List_of_writing_systems"</span>).introduction,  <span class="co"># Dry list of writing systems</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'methodology'</span>: WikiArticle(<span class="st">"https://en.wikipedia.org/wiki/ISO_8601"</span>).introduction,  <span class="co"># Date/time formatting standards</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-30" class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>boring_articles</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{'bureaucracy': 'ISO 216 is an international standard for paper sizes, used around the world except in North America and parts of Latin America. The standard defines the "A", "B" and "C" series of paper sizes, which includes the A4, the most commonly available paper size worldwide. Two supplementary standards, ISO 217 and ISO 269, define related paper sizes; the ISO 269 "C" series is commonly listed alongside the A and B sizes.\n\nAll ISO 216, ISO 217 and ISO 269 paper sizes (except some envelopes) have the same aspect ratio, √2:1, within rounding to millimetres. This ratio has the unique property that when cut or folded in half widthways, the halves also have the same aspect ratio. Each ISO paper size is one half of the area of the next larger size in the same series.[1]',
+ 'statistics': 'Analysis of variance (ANOVA) is a collection of statistical models and their associated estimation procedures (such as the "variation" among and between groups) used to analyze the differences between groups. It uses F-test by comparing variance between groups and taking noise, or assumed normal distribution of group, into consideration by dividing by variance between elements in a group. ANOVA was developed by the statistician Ronald Fisher. ANOVA is based on the law of total variance, where the observed variance in a particular variable is partitioned into components attributable to different sources of variation. In its simplest form, ANOVA provides a statistical test of whether two or more population means are equal, and therefore generalizes the t-test beyond two means. In other words, the ANOVA is used to test the difference between two or more means.',
+ 'obscure': 'Writing systems are used to record human language, and may be classified according to certain common features.\n\nThe usual name of the script is given first; the name of the languages in which the script is written follows (in brackets), particularly in the case where the language name differs from the script name. Other informative or qualifying annotations for the script may also be provided.',
+ 'methodology': '2025-01-14T03:36:20+00:00 UTC+00:00 [refresh]\n\nISO 8601 is an international standard covering the worldwide exchange and communication of date and time-related data. It is maintained by the International Organization for Standardization (ISO) and was first published in 1988, with updates in 1991, 2000, 2004, and 2019, and an amendment in 2022.[1] The standard provides a well-defined, unambiguous method of representing calendar dates and times in worldwide communications, especially to avoid misinterpreting numeric dates and times when such data is transferred between countries with different conventions for writing numeric dates and times.\n\nISO\xa08601 applies to these representations and formats: dates, in the Gregorian calendar (including the proleptic Gregorian calendar); times, based on the 24-hour timekeeping system, with optional UTC offset; time intervals; and combinations thereof.[2] The standard does not assign specific meaning to any element of the dates/times represented: the meaning of any element depends on the context of its use. Dates and times represented cannot use words that do not have a specified numerical meaning within the standard (thus excluding names of years in the Chinese calendar), or that do not use computer characters (excludes images or sounds).[2]\n\nIn representations that adhere to the ISO\xa08601 interchange standard, dates and times are arranged such that the greatest temporal term (typically a year) is placed at the left and each successively lesser term is placed to the right of the previous term. Representations must be written in a combination of Arabic numerals and the specific computer characters (such as "‐", ":", "T", "W", "Z") that are assigned specific meanings within the standard; that is, such commonplace descriptors of dates (or parts of dates) as "January", "Thursday", or "New Year\'s Day" are not allowed in interchange representations within the standard.'}</code></pre>
+</div>
+</div>
+<p><code>None</code> means we got an error. Most likely from rate limit.</p>
+<p>It’s good to see that people have different interest ratings and difficulty ratings based on their background.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/galopyz\.github\.io\/snackademics");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/galopyz/snackademics/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
